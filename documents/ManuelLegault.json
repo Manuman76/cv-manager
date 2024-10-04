@@ -1,0 +1,206 @@
+{
+    "num_employee": "4420c5bb-11c5-4976-ae87-20b3c3d4c7c9",
+    "oracle_id": "85fc75ec-fce2-46d2-8fc0-9a7f0f546c50",
+    "employee_firstname": "Manuel",
+    "employee_lastname": "Legault",
+    "role": "Solution Architect",
+    "rh_classification": "",
+    "life_skills": "",
+    "address": {
+      "streetaddress": "166 Wolf Branch",
+      "city": "Clémence Est",
+      "state": "Île-du-Prince-Édouard",
+      "postalcode": "V6N2Y1"
+    },
+    "email": "manuel.legault@alithya.com",
+    "phone_num": "(514)464-1237",
+    "manager": "Sylvain.Goubaud@alithya.com",
+    "languages": [
+      {
+        "language": "Francais",
+        "is_default": true,
+        "is_written": true,
+        "is_spoken": true
+      },
+      {
+        "language": "English",
+        "is_default": false,
+        "is_written": true,
+        "is_spoken": true
+      }
+    ],
+    "introduction": [
+      {
+        "intro_ctx": "defaut",
+        "intro_txt": "Monsieur Legault est un professionnel dévoué, dynamique et consciencieux. Architecte de solutions au sein de la pratique d’architecture chez Alithya, il participe activement au développement des référentiels et des processus de la pratique. Il possède d’excellents réflexes en résolution de problèmes. Au cours de sa carrière, il a démontré une grande capacité d’analyse, que ce soit en définition des besoins, en définition technique ou en implantation de solutions. Sa curiosité, son entrain et son expérience diversifiée en technologie l’ont amené à conseiller et à accompagner les équipes impliquées dans la réalisation de différents projets. "
+      }
+    ],
+    "studies": [
+      {
+        "school_id": "College_CDI",
+        "school_name": "College CDI",
+        "end_date": "1999-12-15",
+        "course": "Programmeur Analyste",
+        "degree": "AEC"
+      }
+    ],
+    "formation_compl": [
+      {
+        "institute_name": "Beauchamp, Martin and Bérubé",
+        "course": "Magazine features editor",
+        "end_date": "2022-02-21"
+      },
+      {
+        "institute_name": "Blais-Paquette",
+        "course": "IT technical support officer",
+        "end_date": "2021-03-12"
+      }
+    ],
+    "certifications": [
+      {
+        "certifying_org": "Microsoft",
+        "certification": "Azure fundamentals",
+        "valid_till": "NA"
+      }
+    ],
+    "other_skills": [
+      {
+        "id_other_skills": "32efeeb1-77c2-4746-978b-f747481b5e41",
+        "skill": "asperiores",
+        "duration": 24
+      }
+    ],
+    "evolutions": [
+      {
+        "id_evolution": "cb154316-d9db-40d9-97a9-39123cab0104",
+        "evolution": "unde",
+        "experiences": 28,
+        "mentor_needed": false,
+        "opportunity_time": 6,
+        "manager_confidence": 5,
+        "ongoing_educations": [
+          {
+            "id_ongoing_education": "75d5d166-62a9-4db8-a46b-40ba6d908434",
+            "course_title": "Programme researcher, broadcasting/film/video",
+            "domains": "vitae",
+            "duration": 0,
+            "completed": false,
+            "certifying": false
+          }
+        ]
+      }
+    ],
+    "mandates": [
+      {
+        "id_mandate": "d9169557-8282-4a8a-bf92-84c4b3a8b212",
+        "id_project": "958371f9-0393-4323-8eae-8644c7ac325c",
+        "start_date": "2022-08-24",
+        "end_date": "2023-10-04",
+        "function": "Industrial/product designer",
+        "resume": "Illo rem nesciunt consequuntur atque. Exercitationem magni itaque unde ipsam eius ut. Tempora magnam cum dicta molestiae. Iure possimus eveniet ex incidunt iste atque.",
+        "technologies": [
+          {
+            "technology": "officiis"
+          }
+        ],
+        "responsibilities": [
+          {
+            "responsibility": "Eos vel sequi laboriosam laboriosam."
+          }
+        ],
+        "ref_name": "Michel Lapierre",
+        "ref_contact": "(917) 963-8181",
+        "methodologies": [
+          {
+            "methodology": "id"
+          },
+          {
+            "methodology": "repellat"
+          }
+        ],
+        "skills": [
+          {
+            "skill": "tenetur"
+          },
+          {
+            "skill": "sunt"
+          },
+          {
+            "skill": "quidem"
+          }
+        ]
+      },
+      {
+        "id_mandate": "120a9a05-3cf4-4a32-924e-bbc298ffc6f8",
+        "id_project": "cf7ec6a4-2670-4de4-934e-9444c648fa27",
+        "start_date": "2023-01-14",
+        "end_date": "2024-01-24",
+        "function": "Health promotion specialist",
+        "resume": "Quae ducimus unde. Incidunt error sit laborum repudiandae consectetur ipsum veniam.os magnam corrupti repellendus ex. Atque illum illo molestias dolorem inventore.",
+        "technologies": [
+          {
+            "technology": "ex"
+          }
+        ],
+        "responsibilities": [
+          {
+            "responsibility": "Officiis deleniti veniam iste sequi."
+          },
+          {
+            "responsibility": "Doloremque dolor consectetur sit doloremque non sequi."
+          },
+          {
+            "responsibility": "Consectetur consequatur tempora necessitatibus labore quis porro."
+          },
+          {
+            "responsibility": "Ullam vel deleniti cumque neque asperiores earum."
+          },
+          {
+            "responsibility": "Modi saepe facilis maiores accusantium adipisci perspiciatis."
+          }
+        ],
+        "ref_name": "Margot Leblanc",
+        "ref_contact": "113.589.3521",
+        "methodologies": [
+          {
+            "methodology": "nemo"
+          },
+          {
+            "methodology": "assumenda"
+          },
+          {
+            "methodology": "reiciendis"
+          }
+        ],
+        "skills": [
+          {
+            "skill": "perspiciatis"
+          },
+          {
+            "skill": "tempore"
+          },
+          {
+            "skill": "expedita"
+          },
+          {
+            "skill": "unde"
+          }
+        ]
+      }
+    ],
+    "publications": [
+      {
+        "publication": "Mollitia quasi ratione voluptates quae.",
+        "date_pub": "2023-08-27",
+        "subject_pub": "dolor",
+        "editor_pub": "Clémence Boivin"
+      },
+      {
+        "publication": "Animi enim ad eos accusantium sequi aspernatur.",
+        "date_pub": "2022-03-29",
+        "subject_pub": "hic",
+        "editor_pub": "Patricia Navarro"
+      }
+    ],
+    "departure_date": ""
+}
