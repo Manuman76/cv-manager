@@ -3,14 +3,34 @@
 {% block content %}
 <article>
     <h2>About</h2>
+    <div class="grid">
+        <div>
+            <p><h4>First name:</h4> {{ mydoc.employee_firstname }}</p>
+            <p><h4>Last name:</h4> {{ mydoc.employee_lastname }}</p>
+            <p><h4>Role:</h4> {{ mydoc.role }}</p>
+        </div>
+        <div>
+            <p><h4>Phone:</h4>{{ mydoc.phone_num }}</p>
+            <p><h4>Manager:</h4> {{ mydoc.manager }}</p>
+            <p><h4>Oracle:</h4> {{ mydoc.oracle_id }}</p>
+        </div>
+    </div>
 </article>
 
 <article>
     <h2>Introduction</h2>
+    {% for intro in mydoc.introduction %}
+        <p><h4>{{ intro.intro_ctx }}</h4></p>
+        <p>{{ intro.intro_txt }}</p>
+    {% endfor %}
 </article>
 
 <article>
     <h2>Education</h2>
+    {% for edu in mydoc.studies %}
+        <p><h4>{{ edu.school_name }}</h4></p>
+        <p>{{ edu.degree + ", " + edu.end_date }}</p>
+    {% endfor %}
 </article>
 
 <article>

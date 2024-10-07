@@ -15,9 +15,10 @@ def create_app():
         mydoc = mycol.find(myquery)
         return render_template('my-team.html', mydoc=mydoc)
 
-    @app.route('/profile')
-    def profile():
-        return render_template('profile.html')
+    @app.route('/profile/<email>')
+    def profile(email):
+        mydoc = mycol.find_one({"email": email})
+        return render_template('profile.html', mydoc=mydoc)
 
     return app
 
