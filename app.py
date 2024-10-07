@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
 import pymongo
 
-
 def create_app():
     app = Flask(__name__)
 
@@ -10,10 +9,10 @@ def create_app():
     mycol = mydb["employees"]
 
     myquery = { "manager": "manuel.legault@alithya.com" }
-    mydoc = mycol.find(myquery)
 
     @app.route('/')
     def index():
+        mydoc = mycol.find(myquery)
         return render_template('my-team.html', mydoc=mydoc)
 
     @app.route('/profile')

@@ -1,29 +1,11 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
 
-{% block content %}
-
-    <h1>My Team</h1>
-    {% for emp in mydoc %}
-        <article>
-            <h2>{{ emp.employee_firstname + emp.employee_lastname }}</h2>
-            <p>Role: Architecte Logiciel</p>
-            <p>RH:Conseiller</p>
-            <p><a href="#">Voir le CV</a></p>
-        </article>
-    {% endfor %}
-
-
-    <article>
-      <h2>Jean-Francois Tremblay</h2>
-      <p>Role: Architecte Logiciel</p>
-      <p>RH:Conseiller</p>
-      <p><a href="#">Voir le CV</a></p>
-    </article>
-    <article>
-      <h2>Javier Prieto</h2>
-      <p>Role: Architecte Logiciel</p>
-      <p>RH:Conseiller</p>
-      <p><a href="#">Voir le CV</a></p>
-    </article>
-
-{% endblock %}
+<h1>My Team</h1>
+{% for emp in mydoc %}
+<article>
+    <h2>{{ emp.employee_firstname + emp.employee_lastname }}</h2>
+    <p>Role: Architecte Logiciel</p>
+    <p>RH:Conseiller</p>
+    <p><a href="#">Voir le CV</a></p>
+</article>
+{% endfor %} {% endblock %}
