@@ -29,15 +29,25 @@
     <h2>Education</h2>
     {% for edu in mydoc.studies %}
         <p><h4>{{ edu.school_name }}</h4></p>
-        <p>{{ edu.degree + ", " + edu.end_date }}</p>
+        <p>{{ edu.degree + ", " + edu.course }}</p>
+        <p>{{ edu.end_date }}</p>
     {% endfor %}
 </article>
 
 <article>
-    <h2>Technologies</h2>
+  <h2>Technologies</h2>
+  {% for edu in mydoc.other_skills %}
+    <p><h4>{{ edu.skill }}</h4></p>
+    <p>{{ edu.duration}} mois</p>
+  {% endfor %}
 </article>
 
 <article>
     <h2>Experiences</h2>
+    {% for mandate in mydoc.mandates %}
+      <p><h4>{{ mandate.function }}</h4></p>
+      <p>{{ mandate.resume }}</p>
+      <p>{{ mandate.start_date }} / {{ mandate.end_date }}</p>
+    {% endfor %}
 </article>
 {% endblock %}
