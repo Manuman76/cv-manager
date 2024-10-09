@@ -45,7 +45,8 @@
 <article>
     <h2>Experiences</h2>
     {% for mandate in mydoc.mandates %}
-      <p><h4>{{ mandate.function }}</h4></p>
+      <p><h4>{{loop.index}}. {{ mandate.client_name + " / " + mandate.project_name }}</h4></p>
+      <p>{{ mandate.function }}</p>
       <p>{{ mandate.resume }}</p>
       <p>{{ mandate.start_date }} / {{ mandate.end_date }}</p>
     {% endfor %}
