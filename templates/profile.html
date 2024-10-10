@@ -5,29 +5,32 @@
     <h2>About</h2>
     <div class="grid">
         <div>
-            <p><h4>First name:</h4> {{ mydoc.employee_firstname }}</p>
-            <p><h4>Last name:</h4> {{ mydoc.employee_lastname }}</p>
-            <p><h4>Role:</h4> {{ mydoc.role }}</p>
+            <p><h4>First name:</h4> {{ session.mydoc.employee_firstname }}</p>
+            <p><h4>Last name:</h4> {{ session.mydoc.employee_lastname }}</p>
+            <p><h4>Role:</h4> {{ session.mydoc.role }}</p>
         </div>
         <div>
-            <p><h4>Phone:</h4>{{ mydoc.phone_num }}</p>
-            <p><h4>Manager:</h4> {{ mydoc.manager }}</p>
-            <p><h4>Oracle:</h4> {{ mydoc.oracle_id }}</p>
+            <p><h4>Phone:</h4>{{ session.mydoc.phone_num }}</p>
+            <p><h4>Manager:</h4> {{ session.mydoc.manager }}</p>
+            <p><h4>Oracle:</h4> {{ session.mydoc.oracle_id }}</p>
         </div>
     </div>
 </article>
 
 <article>
     <h2>Introduction</h2>
-    {% for intro in mydoc.introduction %}
+    <a href="#">Add</a>
+    {% for intro in session.mydoc.introduction %}
         <p><h4>{{ intro.intro_ctx }}</h4></p>
         <p>{{ intro.intro_txt }}</p>
+        <a href="#">Edit</a>
+        <a href="#">Delete</a>
     {% endfor %}
 </article>
 
 <article>
     <h2>Education</h2>
-    {% for edu in mydoc.studies %}
+    {% for edu in session.mydoc.studies %}
         <p><h4>{{ edu.school_name }}</h4></p>
         <p>{{ edu.degree + ", " + edu.course }}</p>
         <p>{{ edu.end_date }}</p>
@@ -36,7 +39,7 @@
 
 <article>
   <h2>Technologies</h2>
-  {% for edu in mydoc.other_skills %}
+  {% for edu in session.mydoc.other_skills %}
     <p><h4>{{ edu.skill }}</h4></p>
     <p>{{ edu.duration}} mois</p>
   {% endfor %}
@@ -44,11 +47,22 @@
 
 <article>
     <h2>Experiences</h2>
-    {% for mandate in mydoc.mandates %}
-      <p><h4>{{loop.index}}. {{ mandate.client_name + " / " + mandate.project_name }}</h4></p>
-      <p>{{ mandate.function }}</p>
-      <p>{{ mandate.resume }}</p>
-      <p>{{ mandate.start_date }} / {{ mandate.end_date }}</p>
+    {% for mandate in session.mydoc.mandates %}
+    <div class="grid">
+        <div>
+            <p><strong>{{loop.index}}. {{ mandate.client_name + " / " + mandate.project_name }}</strong></p>
+            <p><strong>Function: </strong>{{ mandate.function }}</p>
+            <p><strong>Project resume: </strong>{{ mandate.resume }}</p>
+        </div>
+        <div class="right">
+            <p>{{ mandate.start_date }} / {{ mandate.end_date }}</p>
+            <p>Project size: {{ mandate.size }}</p>
+            <p>Actual effort: {{ mandate.effort }}</p>
+        </div>
+    </div>
+    <p><strong>Organisation Context: </strong>{{ mandate.org_context }}this the organisation context which could contain a multiline paragraph of text</p>
+    <p><strong>Project Context: </strong>{{ mandate.project_context }}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam imperdiet feugiat libero nec placerat. Sed efficitur sit amet dui eu bibendum. Etiam elementum eu dui at mollis. Integer consequat urna eu libero ultricies congue. Cras ac eros eget risus varius scelerisque. Duis suscipit convallis massa id pulvinar. In et est lorem. Praesent sed iaculis ligula. </p>
+    <hr/>
     {% endfor %}
 </article>
 {% endblock %}
