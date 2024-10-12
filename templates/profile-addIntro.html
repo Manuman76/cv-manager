@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST">
+    <fieldset>
+        <label>
+            Titre
+            <input
+                    name="intro_ctx"
+            />
+        </label>
+        <label>
+            Introduction
+            <textarea
+                    name="intro_txt"
+            >
+            </textarea>
+        </label>
+    </fieldset>
+
+    <input
+            type="submit"
+            value="Submit"
+    />
+</form>
+{% endblock %}

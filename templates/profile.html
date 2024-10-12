@@ -19,7 +19,7 @@
 
 <article>
     <h2>Introduction</h2>
-    <a href="#">Add</a>
+    <a href="/profile-addIntro/{{ session.mydoc.email }}">Add</a>
     {% for intro in session.mydoc.introduction %}
         <p><h4>{{ intro.intro_ctx }}</h4></p>
         <p>{{ intro.intro_txt }}</p>
