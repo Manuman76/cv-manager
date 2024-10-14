@@ -30,7 +30,7 @@ def create_app():
     @app.route('/profile-addIntro/<email>', methods=['GET', 'POST'])
     def profile_addIntro(email):
         if request.method == 'GET':
-            return render_template('profile-addIntro.html')
+            return render_template('profile-intro-add.html')
         if request.method == 'POST':
             mydoc = mycol.find_one({"email": email})
             intro_ctx = request.form['intro_ctx']
