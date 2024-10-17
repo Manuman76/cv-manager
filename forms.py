@@ -5,23 +5,27 @@ from wtforms.validators import DataRequired
 class IntroForm(FlaskForm):
     intro_ctx = StringField('Introduction title', validators=[DataRequired()])
     intro_txt = StringField('Introduction text', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 class LanguageForm(FlaskForm):
     language = StringField('Language', validators=[DataRequired()])
     is_default = BooleanField('Default')
     is_written = BooleanField('Written')
     is_spoken = BooleanField('Spoken')
+    submit = SubmitField('Submit')
 
 class StudiesForm(FlaskForm):
     school_name = StringField('School name', validators=[DataRequired()])
     end_date = StringField('End date', validators=[DataRequired()])
     course = StringField('Course', validators=[DataRequired()])
     degree = StringField('Degree', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 class CertificationForm(FlaskForm):
     certifying_org = StringField('Certifying organization', validators=[DataRequired()])
     certification = StringField('Certification', validators=[DataRequired()])
     valid_till = StringField('Valid till', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 class MandateForm(FlaskForm):
     project_name = StringField('Project name', validators=[DataRequired()])
@@ -40,3 +44,4 @@ class MandateForm(FlaskForm):
     methodologies = StringField('Methodologies', validators=[DataRequired()])
     org_context = StringField('Organization context', validators=[DataRequired()])
     project_context = StringField('Project context', validators=[DataRequired()])
+    submit = SubmitField('Submit')
