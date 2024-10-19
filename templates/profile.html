@@ -23,8 +23,19 @@
     {% for intro in session.mydoc.introduction %}
         <p><h4>{{ intro.intro_ctx }}</h4></p>
         <p>{{ intro.intro_txt }}</p>
-        <a href="#">Edit</a>
-        <a href="#">Delete</a>
+    <div class="grid">
+        <div>
+            <input type="button" onclick="location.href='/profile-editIntro/{{ loop.index-1 }}'" value="Edit"/>
+        </div>
+        <div>
+            <form action="{{ url_for('profile_deleteIntro') }}" method="POST">
+                <input type="hidden" name="email" value="{{ session.mydoc.email }}">
+                <input type="hidden" name="id_intro" value="{{ loop.index-1 }}">
+                <input type="submit" class="secondary" value="Delete">
+            </form>
+        </div>
+
+    </div>
     {% endfor %}
 </article>
 

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form action="" method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+    {{ form.intro_ctx.label }} {{ form.intro_ctx }}
+    {% for error in form.intro_ctx.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </p>
+    <p>
+    {{ form.intro_txt.label }} {{ form.intro_txt }}
+    {% for error in form.intro_txt.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </p>
+    {{ form.submit }}
+</form>
+{% endblock %}
