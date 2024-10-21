@@ -1,10 +1,11 @@
-.right{
+.right {
     margin-left: auto;
 }
-.flash{
-    background-color: #30799B;
+.flash {
+    background-color: #30799b;
 }
-.flash p{
+.flash p {
+    font-size: 1.5em;
     color: white;
 }
 button {

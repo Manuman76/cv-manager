@@ -1,10 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, TextAreaField, IntegerField
 from wtforms.validators import DataRequired
 
 class IntroForm(FlaskForm):
     intro_ctx = StringField('Introduction title', validators=[DataRequired()])
     intro_txt = StringField('Introduction text', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class OtherSkillsForm(FlaskForm):
+    skill = StringField('Skill', validators=[DataRequired()])
+    duration = IntegerField('Duration', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class LanguageForm(FlaskForm):
@@ -16,7 +21,7 @@ class LanguageForm(FlaskForm):
 
 class StudiesForm(FlaskForm):
     school_name = StringField('School name', validators=[DataRequired()])
-    end_date = StringField('End date', validators=[DataRequired()])
+    end_date = DateField('End date', validators=[DataRequired()])
     course = StringField('Course', validators=[DataRequired()])
     degree = StringField('Degree', validators=[DataRequired()])
     submit = SubmitField('Submit')

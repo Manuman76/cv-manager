@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block content %}
+<form action="" method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.school_name.label }} {{ form.school_name }} {% for error in
+        form.school_name.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.degree.label }} {{ form.degree }} {% for error in
+        form.degree.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.course.label }} {{ form.course }} {% for error in
+        form.course.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.end_date.label }} {{ form.end_date }} {% for error in
+        form.end_date.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    {{ form.submit }}
+</form>
+{% endblock %}
