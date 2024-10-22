@@ -208,6 +208,16 @@ def create_app():
                 flash('An error occurred: ' + str(e))
         return render_template('profile-mandate-add.html', form = form)
 
+    @app.route('/profile-editMandate/<int:id_mandate>', methods=['GET', 'POST'])
+    def profile_editMandate(id_mandate):
+        email = session['email']
+        return redirect(url_for('profile', email=email))
+
+    @app.route('/profile-deleteMandate', methods=['POST'])
+    def profile_deleteMandate():
+        email = request.form['email']
+        return redirect(url_for('profile', email=email))
+
     return app
 
 app = create_app()

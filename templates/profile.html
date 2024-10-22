@@ -86,6 +86,7 @@
 
 <article>
     <h2>Experiences</h2>
+    <a href="/profile-addMandate/{{ session.mydoc.email }}">Add</a>
     {% for mandate in session.mydoc.mandates %}
     <div class="grid">
         <div>
@@ -101,6 +102,18 @@
     </div>
     <p><strong>Organisation Context: </strong>{{ mandate.org_context }}this the organisation context which could contain a multiline paragraph of text</p>
     <p><strong>Project Context: </strong>{{ mandate.project_context }}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam imperdiet feugiat libero nec placerat. Sed efficitur sit amet dui eu bibendum. Etiam elementum eu dui at mollis. Integer consequat urna eu libero ultricies congue. Cras ac eros eget risus varius scelerisque. Duis suscipit convallis massa id pulvinar. In et est lorem. Praesent sed iaculis ligula. </p>
+    <div class="grid">
+        <div>
+            <a href="/profile-editMandate/{{ loop.index-1 }}">Edit</a>
+        </div>
+        <div>
+            <form action="{{ url_for('profile_deleteMandate') }}" method="POST">
+                <input type="hidden" name="email" value="{{ session.mydoc.email }}">
+                <input type="hidden" name="id_techno" value="{{ loop.index-1 }}">
+                <a href="#" onclick="event.target.parentNode.submit();">Delete</a>
+            </form>
+        </div>
+    </div>
     <hr/>
     {% endfor %}
 </article>
