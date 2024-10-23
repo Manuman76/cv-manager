@@ -7,6 +7,14 @@ from bson import json_util
 from pymongo.read_preferences import read_pref_mode_from_name
 from forms import IntroForm, MandateForm, OtherSkillsForm, StudiesForm
 
+def get_dict_from_string(a, type):
+    d = {}
+    for b in a:
+        # i = b.split(': ')
+        d[type] = b
+    return d
+
+
 def create_app():
     app = Flask(__name__)
     app.secret_key = 'mysecretkey'
@@ -220,7 +228,6 @@ def create_app():
             tools = [item['tool'] for item in mandate['tools']]
             methotodologies = [item['methodology'] for item in mandate['methodologies']]
             technologies = [item['technology'] for item in mandate['technologies']]
-            print(responsibilities)
             form = MandateForm(
                 project_name=mandate['project_name'],
                 client_name=mandate['client_name'],
@@ -241,6 +248,7 @@ def create_app():
             )
             if form.validate_on_submit():
                 try:
+                    print(form.responsibilities.data)
                     mandate['project_name'] = form.project_name.data
                     mandate['client_name'] = form.client_name.data
                     mandate['function'] = form.function.data
@@ -249,14 +257,14 @@ def create_app():
                     mandate['size'] = str(form.size.data)
                     mandate['effort'] = str(form.effort.data)
                     mandate['resume'] = form.resume.data
-                    mandate['responsibilities'] = form.responsibilities.data
+                    mandate['responsibilities'] = get_dict_from_string(form.responsibilities.data, 'responsibility')
                     mandate['org_context'] = form.org_context.data
                     mandate['project_context'] = form.project_context.data
-                    mandate['technologies'] = form.technologies.data
-                    mandate['tools'] = form.tools.data
+                    mandate['technologies'] = get_dict_from_string(form.technologies.data, 'technology')
+                    mandate['tools'] = get_dict_from_string(form.tools.data, 'tool')
                     mandate['ref_name'] = form.ref_name.data
                     mandate['ref_contact'] = form.ref_contact.data
-                    mandate['methodologies'] = form.methodologies.data
+                    mandate['methodologies'] = get_dict_from_string(form.methodologies.data, 'methodology')
                     mycol.replace_one({"email": email}, mydoc, upsert=True)
                     flash('Experience edited')
                     return redirect(url_for('profile', email=email))
