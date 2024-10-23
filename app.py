@@ -4,6 +4,7 @@ import pymongo
 import uuid
 from flask import Flask, render_template, request, session, jsonify, flash, redirect, url_for
 from bson import json_util
+from pymongo.read_preferences import read_pref_mode_from_name
 from forms import IntroForm, MandateForm, OtherSkillsForm, StudiesForm
 
 def create_app():
@@ -24,9 +25,9 @@ def create_app():
     @app.route('/profile/<email>')
     def profile(email):
         mydoc = mycol.find_one({"email": email})
-        session['mydoc'] = json.loads(json_util.dumps(mydoc))
+        # session['mydoc'] = json.loads(json_util.dumps(mydoc))
         session['email'] = email
-        return render_template('profile.html', session=session)
+        return render_template('profile.html', mydoc=mydoc)
 
     @app.route('/profile-addIntro/<email>', methods=['GET', 'POST'])
     def profile_addIntro(email):
@@ -145,26 +146,26 @@ def create_app():
 
     @app.route('/profile-editStudy/<int:id_study>', methods=['GET', 'POST'])
     def profile_editStudy(id_study):
-      email = session['email']
-      mydoc = mycol.find_one({"email": email})
-      form = StudiesForm()
-      if mydoc is not None:
-          form = StudiesForm(school_name = mydoc['studies'][id_study]['school_name'],
-              degree = mydoc['studies'][id_study]['degree'],
-              course = mydoc['studies'][id_study]['course'],
-              end_date = datetime.datetime.strptime(mydoc['studies'][id_study]['end_date'], '%Y-%m-%d'))
-          if form.validate_on_submit():
-              try:
-                  mydoc['studies'][id_study]['school_name'] = form.school_name.data
-                  mydoc['studies'][id_study]['degree'] = form.degree.data
-                  mydoc['studies'][id_study]['course'] = form.course.data
-                  mydoc['studies'][id_study]['end_date'] = str(form.end_date.data)
-                  mycol.replace_one({ "email": email }, mydoc, upsert=True)
-                  flash('Introduction edited')
-                  return redirect(url_for('profile', email=email))
-              except Exception as e:
-                  flash('An error occurred: ' + str(e))
-      return render_template('profile-study-edit.html', form = form)
+        email = session['email']
+        mydoc = mycol.find_one({"email": email})
+        form = StudiesForm()
+        if mydoc is not None:
+            form = StudiesForm(school_name = mydoc['studies'][id_study]['school_name'],
+                degree = mydoc['studies'][id_study]['degree'],
+                course = mydoc['studies'][id_study]['course'],
+                end_date = datetime.datetime.strptime(mydoc['studies'][id_study]['end_date'], '%Y-%m-%d'))
+            if form.validate_on_submit():
+                try:
+                    mydoc['studies'][id_study]['school_name'] = form.school_name.data
+                    mydoc['studies'][id_study]['degree'] = form.degree.data
+                    mydoc['studies'][id_study]['course'] = form.course.data
+                    mydoc['studies'][id_study]['end_date'] = str(form.end_date.data)
+                    mycol.replace_one({ "email": email }, mydoc, upsert=True)
+                    flash('Introduction edited')
+                    return redirect(url_for('profile', email=email))
+                except Exception as e:
+                    flash('An error occurred: ' + str(e))
+        return render_template('profile-study-edit.html', form = form)
 
     @app.route('/profile-deleteStudy', methods=['POST'])
     def profile_deleteStudy():
@@ -211,11 +212,67 @@ def create_app():
     @app.route('/profile-editMandate/<int:id_mandate>', methods=['GET', 'POST'])
     def profile_editMandate(id_mandate):
         email = session['email']
-        return redirect(url_for('profile', email=email))
+        mydoc = mycol.find_one({"email": email})
+        form = MandateForm()
+        if mydoc is not None:
+            mandate = mydoc['mandates'][id_mandate]
+            responsibilities = [item['responsibility'] for item in mandate['responsibilities']]
+            tools = [item['tool'] for item in mandate['tools']]
+            methotodologies = [item['methodology'] for item in mandate['methodologies']]
+            technologies = [item['technology'] for item in mandate['technologies']]
+            print(responsibilities)
+            form = MandateForm(
+                project_name=mandate['project_name'],
+                client_name=mandate['client_name'],
+                function=mandate['function'],
+                start_date=datetime.datetime.strptime(mandate['start_date'], '%Y-%m-%d'),
+                end_date=datetime.datetime.strptime(mandate['end_date'], '%Y-%m-%d'),
+                size=mandate['size'],
+                effort=mandate['effort'],
+                resume=mandate['resume'],
+                responsibilities=', '.join(responsibilities),
+                org_context=mandate['org_context'],
+                project_context=mandate['project_context'],
+                technologies=', '.join(technologies),
+                tools=', '.join(tools),
+                ref_name=mandate['ref_name'],
+                ref_contact=mandate['ref_contact'],
+                methodologies=', '.join(methotodologies)
+            )
+            if form.validate_on_submit():
+                try:
+                    mandate['project_name'] = form.project_name.data
+                    mandate['client_name'] = form.client_name.data
+                    mandate['function'] = form.function.data
+                    mandate['start_date'] = str(form.start_date.data)
+                    mandate['end_date'] = str(form.end_date.data)
+                    mandate['size'] = str(form.size.data)
+                    mandate['effort'] = str(form.effort.data)
+                    mandate['resume'] = form.resume.data
+                    mandate['responsibilities'] = form.responsibilities.data
+                    mandate['org_context'] = form.org_context.data
+                    mandate['project_context'] = form.project_context.data
+                    mandate['technologies'] = form.technologies.data
+                    mandate['tools'] = form.tools.data
+                    mandate['ref_name'] = form.ref_name.data
+                    mandate['ref_contact'] = form.ref_contact.data
+                    mandate['methodologies'] = form.methodologies.data
+                    mycol.replace_one({"email": email}, mydoc, upsert=True)
+                    flash('Experience edited')
+                    return redirect(url_for('profile', email=email))
+                except Exception as e:
+                    flash('An error occurred: ' + str(e))
+        return render_template('profile-mandate-edit.html', form=form)
 
     @app.route('/profile-deleteMandate', methods=['POST'])
     def profile_deleteMandate():
         email = request.form['email']
+        mydoc = mycol.find_one({"email": email})
+        id_mandate = int(request.form['id_mandate'])
+        if mydoc is not None:
+            mydoc['mandates'].remove(mydoc['mandates'][id_mandate])
+            mycol.replace_one({ "email": email }, mydoc, upsert=True)
+            flash('Experience deleted')
         return redirect(url_for('profile', email=email))
 
     return app

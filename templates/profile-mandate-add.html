@@ -14,6 +14,42 @@
     {% endfor %}
     </p>
     <p>
+    {{ form.org_context.label }} {{ form.org_context(size=32) }}
+    {% for error in form.org_context.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </p>
+    <p>
+    {{ form.project_context.label }} {{ form.project_context(size=32) }}
+    {% for error in form.project_context.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </p>
+    <p>
+    {{ form.responsibilities.label }} {{ form.responsibilities(size=32) }}
+    {% for error in form.responsibilities.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </p>
+    <p>
+    {{ form.tools.label }} {{ form.tools(size=32) }}
+    {% for error in form.tools.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </p>
+    <p>
+    {{ form.technologies.label }} {{ form.technologies(size=32) }}
+    {% for error in form.technologies.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </p>
+    <p>
+    {{ form.methodologies.label }} {{ form.methodologies(size=32) }}
+    {% for error in form.methodologies.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </p>
+    <p>
     {{ form.size.label }} {{ form.size(size=32) }}
     {% for error in form.size.errors %}
         <span style="color: red;">[{{ error }}]</span>
@@ -45,6 +81,18 @@
     <p>
     {{ form.end_date.label }} {{ form.end_date(size=32) }}
     {% for error in form.end_date.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </p>
+    <p>
+    {{ form.ref_name.label }} {{ form.ref_name(size=32) }}
+    {% for error in form.ref_name.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+    </p>
+    <p>
+    {{ form.ref_contact.label }} {{ form.ref_contact(size=32) }}
+    {% for error in form.ref_contact.errors %}
         <span style="color: red;">[{{ error }}]</span>
     {% endfor %}
     </p>

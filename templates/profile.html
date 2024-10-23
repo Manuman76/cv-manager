@@ -5,22 +5,22 @@
     <h2>About</h2>
     <div class="grid">
         <div>
-            <p><h4>First name:</h4> {{ session.mydoc.employee_firstname }}</p>
-            <p><h4>Last name:</h4> {{ session.mydoc.employee_lastname }}</p>
-            <p><h4>Role:</h4> {{ session.mydoc.role }}</p>
+            <p><h4>First name:</h4> {{ mydoc.employee_firstname }}</p>
+            <p><h4>Last name:</h4> {{ mydoc.employee_lastname }}</p>
+            <p><h4>Role:</h4> {{ mydoc.role }}</p>
         </div>
         <div>
-            <p><h4>Phone:</h4>{{ session.mydoc.phone_num }}</p>
-            <p><h4>Manager:</h4> {{ session.mydoc.manager }}</p>
-            <p><h4>Oracle:</h4> {{ session.mydoc.oracle_id }}</p>
+            <p><h4>Phone:</h4>{{ mydoc.phone_num }}</p>
+            <p><h4>Manager:</h4> {{ mydoc.manager }}</p>
+            <p><h4>Oracle:</h4> {{ mydoc.oracle_id }}</p>
         </div>
     </div>
 </article>
 
 <article>
     <h2>Introduction</h2>
-    <a href="/profile-addIntro/{{ session.mydoc.email }}">Add</a>
-    {% for intro in session.mydoc.introduction %}
+    <a href="/profile-addIntro/{{ mydoc.email }}">Add</a>
+    {% for intro in mydoc.introduction %}
         <p><h4>{{ intro.intro_ctx }}</h4></p>
         <p>{{ intro.intro_txt }}</p>
     <div class="grid">
@@ -29,7 +29,7 @@
         </div>
         <div>
             <form action="{{ url_for('profile_deleteIntro') }}" method="POST">
-                <input type="hidden" name="email" value="{{ session.mydoc.email }}">
+                <input type="hidden" name="email" value="{{ mydoc.email }}">
                 <input type="hidden" name="id_intro" value="{{ loop.index-1 }}">
                 <a href="#" onclick="event.target.parentNode.submit();">Delete</a>
             </form>
@@ -41,8 +41,8 @@
 
 <article>
     <h2>Education</h2>
-    <a href="/profile-addStudy/{{ session.mydoc.email }}">Add</a>
-    {% for edu in session.mydoc.studies %}
+    <a href="/profile-addStudy/{{ mydoc.email }}">Add</a>
+    {% for edu in mydoc.studies %}
         <p><h4>{{ edu.school_name }}</h4></p>
         <p>{{ edu.degree + ", " + edu.course }}</p>
         <p>{{ edu.end_date }}</p>
@@ -52,7 +52,7 @@
             </div>
             <div>
                 <form action="{{ url_for('profile_deleteStudy') }}" method="POST">
-                    <input type="hidden" name="email" value="{{ session.mydoc.email }}">
+                    <input type="hidden" name="email" value="{{ mydoc.email }}">
                     <input type="hidden" name="id_study" value="{{ loop.index-1 }}">
                     <a href="#" onclick="event.target.parentNode.submit();">Delete</a>
                 </form>
@@ -64,8 +64,8 @@
 
 <article>
   <h2>Technologies</h2>
-  <a href="/profile-addTechno/{{ session.mydoc.email }}">Add</a>
-  {% for techno in session.mydoc.other_skills %}
+  <a href="/profile-addTechno/{{ mydoc.email }}">Add</a>
+  {% for techno in mydoc.other_skills %}
     <p><h4>{{ techno.skill }}</h4></p>
     <p>{{ techno.duration}} mois</p>
     <div class="grid">
@@ -74,7 +74,7 @@
         </div>
         <div>
             <form action="{{ url_for('profile_deleteTechno') }}" method="POST">
-                <input type="hidden" name="email" value="{{ session.mydoc.email }}">
+                <input type="hidden" name="email" value="{{ mydoc.email }}">
                 <input type="hidden" name="id_techno" value="{{ loop.index-1 }}">
                 <a href="#" onclick="event.target.parentNode.submit();">Delete</a>
             </form>
@@ -86,8 +86,8 @@
 
 <article>
     <h2>Experiences</h2>
-    <a href="/profile-addMandate/{{ session.mydoc.email }}">Add</a>
-    {% for mandate in session.mydoc.mandates %}
+    <a href="/profile-addMandate/{{ mydoc.email }}">Add</a>
+    {% for mandate in mydoc.mandates %}
     <div class="grid">
         <div>
             <p><strong>{{loop.index}}. {{ mandate.client_name + " / " + mandate.project_name }}</strong></p>
@@ -108,8 +108,8 @@
         </div>
         <div>
             <form action="{{ url_for('profile_deleteMandate') }}" method="POST">
-                <input type="hidden" name="email" value="{{ session.mydoc.email }}">
-                <input type="hidden" name="id_techno" value="{{ loop.index-1 }}">
+                <input type="hidden" name="email" value="{{ mydoc.email }}">
+                <input type="hidden" name="id_mandate" value="{{ loop.index-1 }}">
                 <a href="#" onclick="event.target.parentNode.submit();">Delete</a>
             </form>
         </div>
