@@ -5,15 +5,16 @@ import uuid
 from flask import Flask, render_template, request, session, jsonify, flash, redirect, url_for
 from bson import json_util
 from pymongo.read_preferences import read_pref_mode_from_name
-from forms import IntroForm, MandateForm, OtherSkillsForm, StudiesForm
+from forms import IntroForm, MandateForm, OtherSkillsForm, StudiesForm, ProfileForm
 
-def get_dict_from_string(a, type):
-    d = {}
-    for b in a:
-        # i = b.split(': ')
+def get_dict_from_string_array(a: str, type: str) -> list[dict]:
+    arr = []
+    lst = a.split(', ')
+    for b in lst:
+        d = {}
         d[type] = b
-    return d
-
+        arr.append(d)
+    return arr
 
 def create_app():
     app = Flask(__name__)
@@ -21,9 +22,10 @@ def create_app():
 
     myclient = pymongo.MongoClient("mongodb://192.168.1.128:27017/")
     mydb = myclient["cv-manager"]
+
     mycol = mydb["entries"]
 
-    myquery = { "manager": "manuel.legault@alithya.com" }
+    myquery = { "manager": "sylvain.goubaud@alithya.com" }
 
     @app.route('/')
     def index():
@@ -33,9 +35,46 @@ def create_app():
     @app.route('/profile/<email>')
     def profile(email):
         mydoc = mycol.find_one({"email": email})
-        # session['mydoc'] = json.loads(json_util.dumps(mydoc))
         session['email'] = email
         return render_template('profile.html', mydoc=mydoc)
+
+    @app.route('/profile-add', methods=['GET', 'POST'])
+    def profile_add():
+        form = ProfileForm()
+        if form.validate_on_submit():
+            try:
+                mydoc = mycol.find_one({"email": form.email.data})
+                if mydoc is not None:
+                    flash('This email is already used')
+                    return redirect(url_for('index'))
+                else:
+                    uuid_obj = uuid.uuid4()
+                    mydoc = {
+                        "email": form.email.data,
+                        "num_employee": form.num_employee.data,
+                        "oracle_id": form.oracle_id.data,
+                        "role": form.role.data,
+                        "rh_classification": form.rh_classification.data,
+                        "phone_num": form.phone_num.data,
+                        "employee_firstname": form.employee_firstname.data,
+                        "employee_lastname": form.employee_lastname.data,
+                        "manager": form.manager.data,
+                        "introduction": [],
+                        "other_skills": [],
+                        "studies": [],
+                        "mandates": [],
+                        "tools": [],
+                        "technologies": [],
+                        "certifications": [],
+                        "languages": [],
+                        "publications": []
+                    }
+                    mycol.insert_one(mydoc)
+                    flash('Profile created')
+                    return redirect(url_for('profile', email=form.email.data))
+            except Exception as e:
+                flash('An error occurred: ' + str(e))
+        return render_template('profile-add.html', form = form)
 
     @app.route('/profile-addIntro/<email>', methods=['GET', 'POST'])
     def profile_addIntro(email):
@@ -204,11 +243,14 @@ def create_app():
                         "size": str(form.size.data),
                         "effort": str(form.effort.data),
                         "resume": form.resume.data,
-                        "responsibilities": form.responsibilities.data,
+                        "responsibilities": get_dict_from_string_array(form.responsibilities.data, 'responsibility'),
                         "org_context": form.org_context.data,
                         "project_context": form.project_context.data,
-                        "technologies": form.technologies.data,
-                        "tools": form.tools.data
+                        "technologies": get_dict_from_string_array(form.technologies.data, 'technology'),
+                        "tools": get_dict_from_string_array(form.tools.data, 'tool'),
+                        "ref_name": form.ref_name.data,
+                        "ref_contact": form.ref_contact.data,
+                        "methodologies": get_dict_from_string_array(form.methodologies.data, 'methodology')
                     })
                     mycol.replace_one({ "email": email }, mydoc, upsert=True)
                     flash('Experience added')
@@ -257,14 +299,14 @@ def create_app():
                     mandate['size'] = str(form.size.data)
                     mandate['effort'] = str(form.effort.data)
                     mandate['resume'] = form.resume.data
-                    mandate['responsibilities'] = get_dict_from_string(form.responsibilities.data, 'responsibility')
+                    mandate['responsibilities'] = get_dict_from_string_array(form.responsibilities.data, 'responsibility')
                     mandate['org_context'] = form.org_context.data
                     mandate['project_context'] = form.project_context.data
-                    mandate['technologies'] = get_dict_from_string(form.technologies.data, 'technology')
-                    mandate['tools'] = get_dict_from_string(form.tools.data, 'tool')
+                    mandate['technologies'] = get_dict_from_string_array(form.technologies.data, 'technology')
+                    mandate['tools'] = get_dict_from_string_array(form.tools.data, 'tool')
                     mandate['ref_name'] = form.ref_name.data
                     mandate['ref_contact'] = form.ref_contact.data
-                    mandate['methodologies'] = get_dict_from_string(form.methodologies.data, 'methodology')
+                    mandate['methodologies'] = get_dict_from_string_array(form.methodologies.data, 'methodology')
                     mycol.replace_one({"email": email}, mydoc, upsert=True)
                     flash('Experience edited')
                     return redirect(url_for('profile', email=email))

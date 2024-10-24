@@ -50,3 +50,15 @@ class MandateForm(FlaskForm):
     org_context = TextAreaField('Organization context', validators=[DataRequired()])
     project_context = TextAreaField('Project context', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class ProfileForm(FlaskForm):
+    num_employee = StringField('Number of employees', validators=[DataRequired()])
+    oracle_id = StringField('Oracle ID', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired()])
+    manager = StringField('Manager', validators=[DataRequired()])
+    employee_firstname = StringField('Firstname', validators=[DataRequired()])
+    employee_lastname = StringField('Lastname', validators=[DataRequired()])
+    role = StringField('Role', validators=[DataRequired()])
+    rh_classification = StringField('RH classification', validators=[DataRequired()])
+    phone_num = StringField('Phone number', validators=[DataRequired()])
+    submit = SubmitField('Submit')

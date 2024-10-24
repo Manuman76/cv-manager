@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 
-<h1>My Team</h1>
+<h1>My Team <a href="/profile-add">(Add)</a></h1>
 {% for emp in mydoc %}
 <article>
     <h2>{{ emp.employee_firstname + " " + emp.employee_lastname }}</h2>
