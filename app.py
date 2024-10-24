@@ -6,6 +6,8 @@ from flask import Flask, render_template, request, session, jsonify, flash, redi
 from bson import json_util
 from pymongo.read_preferences import read_pref_mode_from_name
 from forms import IntroForm, MandateForm, OtherSkillsForm, StudiesForm, ProfileForm
+from docxtpl import DocxTemplate
+import jinja2
 
 def get_dict_from_string_array(a: str, type: str) -> list[dict]:
     arr = []
@@ -26,6 +28,16 @@ def create_app():
     mycol = mydb["entries"]
 
     myquery = { "manager": "sylvain.goubaud@alithya.com" }
+
+    @app.route('/test')
+    def test():
+        context = mycol.find_one({"email": "bjohnson@alithya.com"})
+        if context is not None:
+            doc = DocxTemplate("./documents/mlegault.docx")
+            jinja_env = jinja2.Environment()
+            doc.render(context, jinja_env)
+            doc.save("generated_doc.docx")
+        return "Hello!"
 
     @app.route('/')
     def index():
