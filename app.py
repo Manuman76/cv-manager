@@ -2,12 +2,12 @@ import datetime
 import json
 import pymongo
 import uuid
-from flask import Flask, render_template, request, session, jsonify, flash, redirect, url_for
+import jinja2
+from flask import Flask, render_template, request, session, jsonify, flash, redirect, url_for, send_file
 from bson import json_util
 from pymongo.read_preferences import read_pref_mode_from_name
 from forms import IntroForm, MandateForm, OtherSkillsForm, StudiesForm, ProfileForm
 from docxtpl import DocxTemplate
-import jinja2
 
 def get_dict_from_string_array(a: str, type: str) -> list[dict]:
     arr = []
@@ -27,17 +27,18 @@ def create_app():
 
     mycol = mydb["entries"]
 
-    myquery = { "manager": "sylvain.goubaud@alithya.com" }
+    myquery = { "manager": "manuel.legault@alithya.com" }
 
-    @app.route('/test')
-    def test():
-        context = mycol.find_one({"email": "bjohnson@alithya.com"})
+    @app.route('/generatecv/<email>')
+    def generatecv(email):
+        context = mycol.find_one({"email": email})
         if context is not None:
-            doc = DocxTemplate("./documents/mlegault.docx")
+            doc = DocxTemplate("./documents/cvTemplate.docx")
             jinja_env = jinja2.Environment()
             doc.render(context, jinja_env)
             doc.save("generated_doc.docx")
-        return "Hello!"
+            return send_file('generated_doc.docx', as_attachment=True)
+        return ('not found')
 
     @app.route('/')
     def index():

@@ -2,11 +2,9 @@
 
 {% block content %}
 <article>
-    <h2>About</h2>
     <div class="grid">
         <div>
-            <p><h4>First name:</h4> {{ mydoc.employee_firstname }}</p>
-            <p><h4>Last name:</h4> {{ mydoc.employee_lastname }}</p>
+            <h2>{{ mydoc.employee_firstname }} {{ mydoc.employee_lastname }}</h2></p>
             <p><h4>Role:</h4> {{ mydoc.role }}</p>
         </div>
         <div>
