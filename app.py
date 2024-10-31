@@ -24,7 +24,6 @@ def create_app():
 
     myclient = pymongo.MongoClient("mongodb://192.168.1.128:27017/")
     mydb = myclient["cv-manager"]
-
     mycol = mydb["entries"]
 
     myquery = { "manager": "manuel.legault@alithya.com" }
