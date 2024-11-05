@@ -30,6 +30,7 @@
                 </li>
             </ul>
         </nav>
+
         {% with messages = get_flashed_messages() %} {% if messages %}
         <article class="flash">
             {% for message in messages %}
@@ -37,6 +38,7 @@
             {% endfor %}
         </article>
         {% endif %} {% endwith %}
+
         <main class="container">{% block content %}{% endblock %}</main>
     </body>
 </html>
