@@ -14,7 +14,7 @@ def generatecv(email):
         jinja_env = jinja2.Environment()
         doc.render(context, jinja_env)
         doc.save("generated_doc.docx")
-        return send_file('generated_doc.docx', as_attachment=True)
+        return send_file('../generated_doc.docx', as_attachment=True)
     return ('not found')
 
 @app.route('/')
