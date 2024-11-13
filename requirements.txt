@@ -6,8 +6,10 @@ docxcompose==1.4.0
 docxtpl==0.18.0
 Flask==3.0.3
 Flask-WTF==1.2.1
-gunicorn
+flask-sqlalchemy==3.1.1
+gunicorn==23.0.0
 itsdangerous==2.2.0
+gunicorn==23.0.0
 Jinja2==3.1.4
 lxml==5.3.0
 MarkupSafe==2.1.5
@@ -18,3 +20,4 @@ six==1.16.0
 typing_extensions==4.12.2
 Werkzeug==3.0.4
 WTForms==3.1.2
+flask-login==0.6.3

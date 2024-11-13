@@ -1,10 +1,29 @@
 from flask import render_template, request, redirect, url_for, session, send_file, flash
+from flask_login import login_user, current_user
 from docxtpl import DocxTemplate
-from app import app, forms, utils
 from config import Config
+from app.models import User
+from app.forms import LoginForm
+from app import app, forms, utils, db
+import sqlalchemy as sa
 import jinja2
 import uuid
 import datetime
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = db.session.scalar(
+            sa.select(User).where(User.username == form.username.data))
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('index'))
+    return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/generatecv/<email>')
 def generatecv(email):
