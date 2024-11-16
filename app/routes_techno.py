@@ -1,4 +1,5 @@
 from flask import render_template, request, redirect, url_for, session, send_file, flash
+from flask_login import login_user, logout_user, current_user, login_required
 from docxtpl import DocxTemplate
 from app import app, forms, utils
 from config import Config
@@ -7,6 +8,7 @@ import uuid
 import datetime
 
 @app.route('/profile-addTechno/<email>', methods=['GET', 'POST'])
+@login_required
 def profile_addTechno(email):
     form = forms.OtherSkillsForm()
     if form.validate_on_submit():
@@ -26,6 +28,7 @@ def profile_addTechno(email):
     return render_template('profile-techno-add.html', form = form)
 
 @app.route('/profile-editTechno/<int:id_Techno>', methods=['GET', 'POST'])
+@login_required
 def profile_editTechno(id_Techno):
     email = session['email']
     mydoc = Config.mycol.find_one({"email": email})
@@ -45,6 +48,7 @@ def profile_editTechno(id_Techno):
     return render_template('profile-techno-edit.html', form = form)
 
 @app.route('/profile-deleteTechno', methods=['POST'])
+@login_required
 def profile_deleteTechno():
     email = request.form['email']
     mydoc = Config.mycol.find_one({"email": email})

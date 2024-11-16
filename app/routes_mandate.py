@@ -1,4 +1,5 @@
 from flask import render_template, request, redirect, url_for, session, send_file, flash
+from flask_login import login_user, logout_user, current_user, login_required
 from docxtpl import DocxTemplate
 from app import app, forms, utils
 from config import Config
@@ -7,6 +8,7 @@ import uuid
 import datetime
 
 @app.route('/profile-addMandate/<email>', methods=['GET', 'POST'])
+@login_required
 def profile_addMandate(email):
     form = forms.MandateForm()
     if form.validate_on_submit():
@@ -41,6 +43,7 @@ def profile_addMandate(email):
     return render_template('profile-mandate-add.html', form = form)
 
 @app.route('/profile-editMandate/<int:id_mandate>', methods=['GET', 'POST'])
+@login_required
 def profile_editMandate(id_mandate):
     email = session['email']
     mydoc = Config.mycol.find_one({"email": email})
@@ -96,6 +99,7 @@ def profile_editMandate(id_mandate):
     return render_template('profile-mandate-edit.html', form=form)
 
 @app.route('/profile-deleteMandate', methods=['POST'])
+@login_required
 def profile_deleteMandate():
     email = request.form['email']
     mydoc = Config.mycol.find_one({"email": email})

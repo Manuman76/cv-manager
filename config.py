@@ -9,7 +9,6 @@ class Config:
     myclient = pymongo.MongoClient("mongodb://192.168.1.128:27017/")
     mydb = myclient["cv-manager"]
     mycol = mydb["entries"]
-    myquery = { "manager": "manuel.legault@alithya.com" }
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
             'sqlite:///' + os.path.join(basedir, 'app.db')
